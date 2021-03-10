@@ -4,31 +4,31 @@
     <ui-heading-main>Pyramidy</ui-heading-main>
     <ui-page-section-box>
 
-      <div class="w-60 border">
+      <div class="w-60">
         <div class="grid grid-cols-6">
           <div class="pyramidBlock col-start-1 col-span-2" :class="{ 'questionBlock': question[0] != null }" @click="click(0)">
             {{ state[0] }}
-            <pyramid-numbers-pad :show="showNumbersPadAtPosition == 0" @numberSelected="setNumber" />
+            <pyramid-numbers-pad :show="showNumbersPadAtPosition == 0" :currentValue="state[0]" @numberSelected="setNumber" />
           </div>
           <div class="pyramidBlock col-start-3 col-span-2" :class="{ 'questionBlock': question[1] != null }" @click="click(1)">
             {{ state[1] }}
-            <pyramid-numbers-pad :show="showNumbersPadAtPosition == 1" @numberSelected="setNumber" />
+            <pyramid-numbers-pad :show="showNumbersPadAtPosition == 1" :currentValue="state[1]" @numberSelected="setNumber" />
           </div>
           <div class="pyramidBlock col-start-5 col-span-2" :class="{ 'questionBlock': question[2] != null }" @click="click(2)">
             {{ state[2] }}
-            <pyramid-numbers-pad :show="showNumbersPadAtPosition == 2" @numberSelected="setNumber" />
+            <pyramid-numbers-pad :show="showNumbersPadAtPosition == 2" :currentValue="state[2]" @numberSelected="setNumber" />
           </div>
           <div class="pyramidBlock col-start-2 col-span-2" :class="{ 'questionBlock': question[3] != null }" @click.stop="click(3)">
             {{ state[3] }}
-            <pyramid-numbers-pad :show="showNumbersPadAtPosition == 3" @numberSelected="setNumber" />
+            <pyramid-numbers-pad :show="showNumbersPadAtPosition == 3" :currentValue="state[3]" @numberSelected="setNumber" />
           </div>
           <div class="pyramidBlock col-start-4 col-span-2" :class="{ 'questionBlock': question[4] != null }" @click="click(4)">
             {{ state[4] }}
-            <pyramid-numbers-pad :show="showNumbersPadAtPosition == 4" @numberSelected="setNumber" />
+            <pyramid-numbers-pad :show="showNumbersPadAtPosition == 4" :currentValue="state[4]" @numberSelected="setNumber" />
           </div>
           <div class="pyramidBlock col-start-3 col-span-2" :class="{ 'questionBlock': question[5] != null }" @click="click(5)">
             {{ state[5] }}
-            <pyramid-numbers-pad :show="showNumbersPadAtPosition == 5" @numberSelected="setNumber" />
+            <pyramid-numbers-pad :show="showNumbersPadAtPosition == 5" :currentValue="state[5]" @numberSelected="setNumber" />
           </div>
         </div>
       </div>
@@ -45,7 +45,7 @@
     @apply border text-center py-4 h-14 relative;
   }
   .questionBlock {
-    @apply border bg-green-100 font-bold;
+    @apply border bg-gray-100 font-bold;
   }
 </style>
 

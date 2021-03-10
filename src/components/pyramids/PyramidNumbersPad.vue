@@ -7,7 +7,9 @@
             v-for="(value, index) in 21"
             :key="index"
             @click.stop="numberClick(index)"
-            href="#" class="hover:bg-gray-100 items-center px-3 py-2 text-xl border"
+            :class="{ 'bg-green-100': index == currentValue }"
+            href="#"
+            class="hover:bg-gray-100 items-center px-3 py-2 text-xl border"
           >
             <span class="">
               {{ index }}
@@ -33,6 +35,10 @@ export default {
   name: 'PyramidNumbersPad',
 
   props: {
+    currentValue: {
+      type: Number,
+      default: null
+    },
     show: {
       type: Boolean,
       default: false

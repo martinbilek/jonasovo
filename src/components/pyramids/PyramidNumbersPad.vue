@@ -1,20 +1,22 @@
 <template>
-  <div class="absolute w-max left-16 top-7 border-2">
+
     <transition name="menuTransition">
-      <div v-if="show" class="relative border border-t-2 rounded-md grid grid-cols-5 cursor-pointer bg-white rounded-md -space-y-px z-10">
-        <a
-          v-for="(value, index) in 21"
-          :key="index"
-          @click.stop="numberClick(index)"
-          href="#" class="hover:bg-gray-100 items-center px-3 py-2 text-xl border"
-        >
-          <span class="">
-            {{ index }}
-          </span>
-        </a>
+      <div v-if="show" class="absolute w-max left-16 top-7 border-2">
+        <div class="relative border border-t-2 rounded-md grid grid-cols-5 cursor-pointer bg-white rounded-md -space-y-px z-10">
+          <a
+            v-for="(value, index) in 21"
+            :key="index"
+            @click.stop="numberClick(index)"
+            href="#" class="hover:bg-gray-100 items-center px-3 py-2 text-xl border"
+          >
+            <span class="">
+              {{ index }}
+            </span>
+          </a>
+        </div>
       </div>
     </transition>
-  </div>
+
 </template>
 
 <style scoped>

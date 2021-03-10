@@ -4,13 +4,33 @@
     <ui-heading-main>Pyramidy</ui-heading-main>
     <ui-page-section-box>
 
-      <div class="grid grid-cols-6 w-60">
-        <div class="xx col-start-1 col-span-2" :class="{ 'font-bold': a.question[0] != null }" @click="click(0)">{{ a.state[0] }}</div>
-        <div class="xx col-start-3 col-span-2" :class="{ 'font-bold': a.question[1] != null }" @click="click(1)">{{ a.state[1] }}</div>
-        <div class="xx col-start-5 col-span-2" :class="{ 'font-bold': a.question[2] != null }" @click="click(2)">{{ a.state[2] }}</div>
-        <div class="xx col-start-2 col-span-2" :class="{ 'font-bold': a.question[3] != null }" @click="click(3)">{{ a.state[3] }}</div>
-        <div class="xx col-start-4 col-span-2" :class="{ 'font-bold': a.question[4] != null }" @click="click(4)">{{ a.state[4] }}</div>
-        <div class="xx col-start-3 col-span-2" :class="{ 'font-bold': a.question[5] != null }" @click="click(5)">{{ a.state[5] }}</div>
+      <div class="w-60 border">
+        <div class="grid grid-cols-6">
+          <div class="pyramidBlock col-start-1 col-span-2" :class="{ 'questionBlock': question[0] != null }" @click="click(0)">
+            {{ state[0] }}
+            <pyramid-numbers-pad :show="showNumbersPadAtPosition == 0" @numberSelected="setNumber" />
+          </div>
+          <div class="pyramidBlock col-start-3 col-span-2" :class="{ 'questionBlock': question[1] != null }" @click="click(1)">
+            {{ state[1] }}
+            <pyramid-numbers-pad :show="showNumbersPadAtPosition == 1" @numberSelected="setNumber" />
+          </div>
+          <div class="pyramidBlock col-start-5 col-span-2" :class="{ 'questionBlock': question[2] != null }" @click="click(2)">
+            {{ state[2] }}
+            <pyramid-numbers-pad :show="showNumbersPadAtPosition == 2" @numberSelected="setNumber" />
+          </div>
+          <div class="pyramidBlock col-start-2 col-span-2" :class="{ 'questionBlock': question[3] != null }" @click.stop="click(3)">
+            {{ state[3] }}
+            <pyramid-numbers-pad :show="showNumbersPadAtPosition == 3" @numberSelected="setNumber" />
+          </div>
+          <div class="pyramidBlock col-start-4 col-span-2" :class="{ 'questionBlock': question[4] != null }" @click="click(4)">
+            {{ state[4] }}
+            <pyramid-numbers-pad :show="showNumbersPadAtPosition == 4" @numberSelected="setNumber" />
+          </div>
+          <div class="pyramidBlock col-start-3 col-span-2" :class="{ 'questionBlock': question[5] != null }" @click="click(5)">
+            {{ state[5] }}
+            <pyramid-numbers-pad :show="showNumbersPadAtPosition == 5" @numberSelected="setNumber" />
+          </div>
+        </div>
       </div>
 
       <button @click="check()" class="border p-2 m-20">testuj</button>
@@ -21,49 +41,65 @@
 </template>
 
 <style scoped>
-  .xx {
-    @apply border text-center py-4 h-14;
+  .pyramidBlock {
+    @apply border text-center py-4 h-14 relative;
+  }
+  .questionBlock {
+    @apply border bg-green-100 font-bold;
   }
 </style>
 
 <script>
 import uiHeadingMain from '@/components/ui/uiHeadingMain.vue';
 import uiPageSectionBox from '@/components/ui/uiPageSectionBox.vue';
+import PyramidNumbersPad from '@/components/pyramids/PyramidNumbersPad.vue';
 
 export default {
   name: 'Dashboard',
 
   components: {
     uiHeadingMain,
-    uiPageSectionBox
+    uiPageSectionBox,
+    PyramidNumbersPad
   },
 
   data: () => ({
-    a: {
-      question: [null, null, 5, null, null, 15],
-      state: [null, null, 5, null, null, 15]
-    }
+    questionsPool: [
+      [2, 6, 6, null, null, null],
+      [null, null, 5, null, null, 15],
+      [3, null, null, 8, 10, null],
+      [3, null, null, 4, null, 7],
+      [null, 4, null, null, 4, 17],
+      [null, 8, null, 10, null, 20],
+    ],
+    question: null,
+    state: null,
+    showNumbersPadAtPosition: null
   }),
+
+  created: function() {
+    this.question = this.questionsPool[Math.floor(Math.random() * this.questionsPool.length)];
+    this.state = this.question.map((x) => x);
+  },
 
   methods: {
     click(pos) {
-      if (this.a.question[pos] == null) {
-        let val = this.a.state[pos];
-
-        if (val != null && val < 20) {
-          val++;
-        } else {
-          val = 0;
-        }
-
-        this.a.state[pos] = val;
+      if (this.question[pos] == null) {
+        this.showNumbersPadAtPosition = pos;
+      } else {
+        this.showNumbersPadAtPosition = null;
       }
+    },
+
+    setNumber(num) {
+      this.state[this.showNumbersPadAtPosition] = num;
+      this.showNumbersPadAtPosition = null;
     },
 
     check() {
       let mistake = true;
 
-      let state = this.a.state;
+      let state = this.state;
 
       if (state[0] + state[1] == state[3]
           && state[1] + state[2] == state[4]

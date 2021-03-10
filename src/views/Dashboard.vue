@@ -33,7 +33,7 @@
         </div>
       </div>
 
-      <button @click="check()" class="border p-2 m-20">testuj</button>
+      <ui-button @click="check()" class="mt-20">Mám to hotové</ui-button>
 
     </ui-page-section-box>
 
@@ -52,6 +52,7 @@
 <script>
 import uiHeadingMain from '@/components/ui/uiHeadingMain.vue';
 import uiPageSectionBox from '@/components/ui/uiPageSectionBox.vue';
+import uiButton from '@/components/ui/uiButton.vue';
 import PyramidNumbersPad from '@/components/pyramids/PyramidNumbersPad.vue';
 
 export default {
@@ -60,6 +61,7 @@ export default {
   components: {
     uiHeadingMain,
     uiPageSectionBox,
+    uiButton,
     PyramidNumbersPad
   },
 
@@ -78,7 +80,8 @@ export default {
   }),
 
   created: function() {
-    this.question = this.questionsPool[Math.floor(Math.random() * this.questionsPool.length)];
+    this.shuffleQuestionsPool();
+    this.question = this.questionsPool[0];
     this.state = this.question.map((x) => x);
   },
 
@@ -112,6 +115,13 @@ export default {
         window.alert('MAS TAM CHYBU :-(');
       } else {
         window.alert('JSI DOBREJ!');
+      }
+    },
+
+    shuffleQuestionsPool() {
+      for (let i = this.questionsPool.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [this.questionsPool[i], this.questionsPool[j]] = [this.questionsPool[j], this.questionsPool[i]];
       }
     }
   }

@@ -142,6 +142,12 @@ export default {
       [3, null, null, 4, null, 7],
       [null, 4, null, null, 4, 17],
       [null, 8, null, 10, null, 20],
+      [3, 1, 4, null, null, null],
+      [3, null, 2, 4, null, null],
+      [3, null, 2, null, 4, null],
+      [null, 5, 0, 6, null, null],
+      [null, 1, null, 4, 5, null],
+      [1, null, null, 3, null, 6]
     ],
     results: [],
     currentQuestionIndex: null,
